@@ -28,6 +28,10 @@ int main(void) {
     assert(eq == 1);
     assert(neq == 0);
 
+    /* Assertions (condition = 1 must compile cleanly) */
+    CHAOS_PP_ASSERT(1);
+    CHAOS_PP_ASSERT_MSG(1, "Should not trigger");
+
     printf("C smoke tests passed successfully.\n");
     return 0;
 }

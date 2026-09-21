@@ -22,6 +22,10 @@ int main() {
     std::string s = CHAOS_PP_STRINGIZE(CHAOS_PP_CAT(test_, cpp));
     assert(s == "test_cpp");
 
+    // Assertions (condition = 1 must compile cleanly)
+    CHAOS_PP_ASSERT(1);
+    CHAOS_PP_ASSERT_MSG(1, "Should not trigger");
+
     std::cout << "C++ smoke tests passed successfully." << std::endl;
     return 0;
 }
