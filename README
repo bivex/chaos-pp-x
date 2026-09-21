@@ -1,4 +1,56 @@
-Unless otherwise specified, terms and conditions of use of
-Chaos Preprocessor software and documentation are described
-in the accompanying license. See the file named LICENSE in
-the top-level directory.
+# Chaos Preprocessor Library
+
+The Chaos Preprocessor Library is a generative metaprogramming framework for C and C++ that builds on the techniques used in the Boost Preprocessor Library. It pushes the state-of-the-art in preprocessor metaprogramming and functions as a reference implementation of advanced macro metaprogramming concepts, idioms, and techniques.
+
+## Usage & Verification
+
+Chaos is a header-only library. To use it in your project, add the repository root to your compiler's include search path:
+
+```c
+#include <chaos/preprocessor.h>
+```
+
+### Compiler Verification
+
+You can verify that the headers compile cleanly using modern C and C++ compilers:
+
+- **C**:
+  ```bash
+  clang -I. -x c -c -o /dev/null chaos/preprocessor.h
+  ```
+  *(or with `gcc`)*:
+  ```bash
+  gcc -I. -x c -c -o /dev/null chaos/preprocessor.h
+  ```
+
+- **C++ (C++11 or newer)**:
+  ```bash
+  clang++ -std=c++11 -I. -x c++ -c -o /dev/null chaos/preprocessor.h
+  ```
+  *(or with `g++`)*:
+  ```bash
+  g++ -std=c++11 -I. -x c++ -c -o /dev/null chaos/preprocessor.h
+  ```
+
+## Building Documentation
+
+The library documentation sources are located in `documentation/` (in XML format) and are compiled to HTML in `built-docs/` using the XSLT tooling in `pp-book/`.
+
+### Prerequisites
+
+- `xsltproc` (XML/XSLT processor; standard on macOS at `/usr/bin/xsltproc` or installable via package managers on Linux)
+- `bash`
+
+### Build Steps
+
+Run the documentation build script from the `pp-book` directory:
+
+```bash
+cd pp-book && bash ./build ../documentation/library.xml ../documentation ../built-docs
+```
+
+Once generated, view the documentation by opening `built-docs/overview.html` or `built-docs/documents.html` in your web browser.
+
+## License
+
+Unless otherwise specified, terms and conditions of use of Chaos Preprocessor software and documentation are described in the accompanying license. See the file named [LICENSE](LICENSE) in the top-level directory (Boost Software License, Version 1.0).
