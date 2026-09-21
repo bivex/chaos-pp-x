@@ -1,0 +1,18 @@
+# Build directories
+build/
+cmake-build-*/
+out/
+
+# System / IDE files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*~
+
+# Temporary docs build artifacts
+pp-book/.library.xml
+pp-book/.meta.xsl
+pp-book/.script
+pp-book/.symbol.xsl
+pp-book/.temp.xml

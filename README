@@ -2,54 +2,93 @@
 
 The Chaos Preprocessor Library is a generative metaprogramming framework for C and C++ that builds on the techniques used in the Boost Preprocessor Library. It pushes the state-of-the-art in preprocessor metaprogramming and functions as a reference implementation of advanced macro metaprogramming concepts, idioms, and techniques.
 
-## Usage & Verification
+## Modern Build System (CMake)
 
-Chaos is a header-only library. To use it in your project, add the repository root to your compiler's include search path:
+Chaos provides a modern CMake build system supporting `INTERFACE` library targets, CTest smoke test suites, installation, package export (`find_package`), and automated documentation builds.
+
+### Quick Start
+
+```bash
+# Configure and build smoke tests
+cmake -B build
+cmake --build build
+
+# Run test suite
+ctest --test-dir build --output-on-failure
+```
+
+Or using the convenience `Makefile`:
+
+```bash
+make          # Configure and build
+make test     # Run smoke tests
+make docs     # Build documentation
+make install  # Install library headers and CMake package configs
+make clean    # Remove build directory
+```
+
+### CMake Options
+
+| Option | Default | Description |
+|---|---|---|
+| `CHAOS_ENABLE_TESTING` | `ON` (top-level) | Build C/C++ verification smoke tests |
+| `CHAOS_ENABLE_DOCS` | `ON` (top-level) | Add `docs` target using `xsltproc` |
+| `CHAOS_INSTALL` | `ON` (top-level) | Install targets and export `chaosConfig.cmake` |
+
+### Integrating with Your CMake Project
+
+#### Via `find_package`
+```cmake
+find_package(chaos 1.0 CONFIG REQUIRED)
+target_link_libraries(my_project PRIVATE chaos::chaos)
+```
+
+#### Via `FetchContent`
+```cmake
+include(FetchContent)
+FetchContent_Declare(
+    chaos
+    GIT_REPOSITORY https://github.com/bivex/chaos-pp-x.git
+    GIT_TAG master
+)
+FetchContent_MakeAvailable(chaos)
+target_link_libraries(my_project PRIVATE chaos::chaos)
+```
+
+## Manual Usage & Compiler Verification
+
+Chaos is a header-only library. To use it directly without CMake, add the repository root to your compiler's include path:
 
 ```c
 #include <chaos/preprocessor.h>
 ```
 
-### Compiler Verification
-
-You can verify that the headers compile cleanly using modern C and C++ compilers:
+Verify header compatibility manually:
 
 - **C**:
   ```bash
   clang -I. -x c -c -o /dev/null chaos/preprocessor.h
   ```
-  *(or with `gcc`)*:
-  ```bash
-  gcc -I. -x c -c -o /dev/null chaos/preprocessor.h
-  ```
-
 - **C++ (C++11 or newer)**:
   ```bash
   clang++ -std=c++11 -I. -x c++ -c -o /dev/null chaos/preprocessor.h
   ```
-  *(or with `g++`)*:
-  ```bash
-  g++ -std=c++11 -I. -x c++ -c -o /dev/null chaos/preprocessor.h
-  ```
 
 ## Building Documentation
 
-The library documentation sources are located in `documentation/` (in XML format) and are compiled to HTML in `built-docs/` using the XSLT tooling in `pp-book/`.
+Documentation sources are located in `documentation/` (XML format) and compiled to HTML in `built-docs/`.
 
-### Prerequisites
-
-- `xsltproc` (XML/XSLT processor; standard on macOS at `/usr/bin/xsltproc` or installable via package managers on Linux)
-- `bash`
-
-### Build Steps
-
-Run the documentation build script from the `pp-book` directory:
-
+### Using CMake Target
 ```bash
-cd pp-book && bash ./build ../documentation/library.xml ../documentation ../built-docs
+cmake --build build --target docs
 ```
 
-Once generated, view the documentation by opening `built-docs/overview.html` or `built-docs/documents.html` in your web browser.
+### Using Script Directly
+```bash
+cd pp-book && ./build ../documentation/library.xml ../documentation ../built-docs
+```
+
+The output HTML files are placed in `built-docs/` (e.g. `built-docs/overview.html`).
 
 ## License
 

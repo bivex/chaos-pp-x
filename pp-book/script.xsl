@@ -15,8 +15,7 @@
 
 	<xsl:output method="text" encoding="UTF-8"/>
 
-	<xsl:template match="/library">
-    #!/bin/bash
+	<xsl:template match="/library">#!/bin/bash
 		# $1 == library specification file
 		# $2 == source path
 		# $3 == destination path
