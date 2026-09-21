@@ -1,4 +1,4 @@
-.PHONY: all build test docs clean install
+.PHONY: all build test example docs clean install
 
 BUILD_DIR ?= build
 CMAKE_GENERATOR ?= $(shell which ninja >/dev/null 2>&1 && echo "Ninja" || echo "Unix Makefiles")
@@ -11,6 +11,9 @@ build:
 
 test: build
 	ctest --test-dir $(BUILD_DIR) --output-on-failure
+
+example: build
+	./$(BUILD_DIR)/examples/production_example
 
 docs:
 	cmake -B $(BUILD_DIR) -G "$(CMAKE_GENERATOR)"

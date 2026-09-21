@@ -22,6 +22,7 @@ Or using the convenience `Makefile`:
 ```bash
 make          # Configure and build
 make test     # Run smoke tests
+make example  # Build and run the production trading engine example
 make docs     # Build documentation
 make install  # Install library headers and CMake package configs
 make clean    # Remove build directory
@@ -32,6 +33,7 @@ make clean    # Remove build directory
 | Option | Default | Description |
 |---|---|---|
 | `CHAOS_ENABLE_TESTING` | `ON` (top-level) | Build C/C++ verification smoke tests |
+| `CHAOS_ENABLE_EXAMPLES` | `ON` (top-level) | Build production-grade trading engine example |
 | `CHAOS_ENABLE_DOCS` | `ON` (top-level) | Add `docs` target using `xsltproc` |
 | `CHAOS_INSTALL` | `ON` (top-level) | Install targets and export `chaosConfig.cmake` |
 

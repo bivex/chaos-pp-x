@@ -19,12 +19,17 @@ target_include_directories(chaos INTERFACE
 
 include(CMakeDependentOption)
 option(CHAOS_ENABLE_TESTING "Build Chaos Preprocessor smoke tests" ${PROJECT_IS_TOP_LEVEL})
+option(CHAOS_ENABLE_EXAMPLES "Build Chaos Preprocessor production examples" ${PROJECT_IS_TOP_LEVEL})
 option(CHAOS_ENABLE_DOCS "Enable documentation generation target" ${PROJECT_IS_TOP_LEVEL})
 option(CHAOS_INSTALL "Generate install targets for Chaos Preprocessor" ${PROJECT_IS_TOP_LEVEL})
 
 if(CHAOS_ENABLE_TESTING)
     enable_testing()
     add_subdirectory(tests)
+endif()
+
+if(CHAOS_ENABLE_EXAMPLES)
+    add_subdirectory(examples)
 endif()
 
 if(CHAOS_ENABLE_DOCS)
